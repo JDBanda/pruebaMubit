@@ -1,0 +1,44 @@
+{% extends 'venta/base.html' %}
+{% block title %}Inicio | Prueba técnica{% endblock title %}
+{% block content %}
+<section>
+    <div class="content">
+        <form method="POST" id="principal_form">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">Monto total de la venta</label>
+                <div class="control">
+                    <input class="input is-rounded" type="text" placeholder="100.00" id="amount"
+                        pattern="\d+(\.\d{0,2})?" title="Solo números enteros con máximo dos decimales" required>
+                </div>
+                <p class="help">Ingresa el monto en pesos y utiliza el punto decimal para los centavos</p>
+            </div>
+            <label class="label">Monto recibido por el cliente</label>
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input is-rounded" type="text" placeholder="200.00" id="client_change"
+                        pattern="\d+(\.\d{0,2})?" title="Solo números enteros con máximo dos decimales" required>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-success is-rounded">
+                        Pagar
+                    </button>
+                </div>
+            </div>
+            <p class="help">Ingresa el monto y presiona enter o pulsa el botón pagar</p>
+        </form>
+        <br>
+        <article class="message is-success">
+            <div class="message-body box">
+                <!--Este dato se muestra unicamente para corroborar las operaciones-->
+                <p>Cambio: $<span id="cambio">0</span></p>
+                <!--Aquí se van creando los elementos del DOM de los billetes-->
+                <div id="template"></div>
+            </div>
+        </article>
+    </div>
+</section>
+{% load static %}
+<script src="{% static 'venta/js/main.js' %}"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+{% endblock content %}

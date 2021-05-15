@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bulma CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <!--JQuery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    {% load static %}
+    <!--Estilos propios-->
+    <link rel="stylesheet" href="{% static 'venta/css/styles.css' %}">
+    <!--Icono de la web-->
+    <link rel="icon"
+        href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACAUlEQVRIS5WW7T0DQRDG/1NBqEBUIKmADiiBClCBpAJUQAl0QAWiAtEBFYzf3L7czN1esJ9yu7Pz8jzPzEb46xJAo3FjqzfIh+KN2heKpQvgt7rfgqA1/tAnZKM+xRjqL5lOAWF3m2sU01uNippKyCqrSzagR+lzCrgGXI3AwAZYFk8FIv0fi9lzo1SXRqhAPVHAJzCv1TSIdQl9AbMB1mJ3vYqCCAXWKqwmpaEB9xVwE5BNmTUr+AR5BLVLZc2BW2CREdmgXAPb4lTgTuEMOHDg+QCm5ipp51vmoG/AXq+HzvBL0KVakLgSEqk1YgUZ015ZCYUn4BR4BTnPNo/AscCzCmeDDi9QJ4gckgXVjhxPoMBM4RBk2+0Lc5SPDqJuP2i1qDGR7I5CAKeopBBhP8NiIUxdH6BZaSGlqQrERQ4pFYhegIt88gCcAM90xIYGbHCQ2B0HSPdMQRuEWSEtp/htqsoweVGkfpokWdiiGInrgUzvskPbtlFw5ZzvCdxkmVpCtQX8LBp28n12MlBh+QxCsOCXkWuTaejkClEZdtZEh3XW75zZuFFRDZ2K0l4hp+u20eDzs60i0HriWgHSZcM1jutRnPhyjbDrJ+s7wiJVX+gYjrrhA9xgYuejVCqeelrazE49OLHU/quQvJtANzh+MWzAEf5VjM53+mscNrZ+APWU1CHgLGsuAAAAAElFTkSuQmCC"
+        type="image/x-icon">
+    <!--Título del documento-->
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+
+<body>
+    <!--Encabezado-->
+    <header>
+        <nav class="navbar is-success" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="https://bulma.io">
+                    <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+                </a>
+
+                <a id="burger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="nav-links" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">
+                        Home
+                    </a>
+                    <!--Aquí se colocan más elementos al menú-->
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!--Contenido-->
+    {% block content %}{% endblock content %}
+    <!--Footer-->
+    <footer class="footer has-text-centered">
+        <p>Prueba técnica para el proceso de reclutamiento en Mubit.co, este sitio es de autoría de Javier David Banda
+            Villeda</p>
+    </footer>
+</body>
+{% load static %}
+<script src="{% static 'venta/js/menu.js' %}"></script>
+
+</html>
