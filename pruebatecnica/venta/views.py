@@ -30,6 +30,7 @@ def moneyChange(cantidad, cliente):
     cliente -- valor numérico del pago del cliente
     """
     moneyTuple = {
+        "billete_1000": 0,
         "billete_500": 0,
         "billete_200": 0,
         "billete_100": 0,
