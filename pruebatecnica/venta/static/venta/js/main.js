@@ -30,15 +30,22 @@ $(function () {
         var client = parseFloat($('#client_change').val());
         if (amount <= client) {
             changeAjax();
-            $('#amount').toggleClass("is-success");
-            $('.help').toggleClass("is-success")
+            $('#amount').removeClass("is-danger");
+            $('#client_change').removeClass("is-danger");
+            $('.help').removeClass("is-danger");
+            $('#amount').addClass("is-success");
+            $('.help').addClass("is-success");
+            $('#client_change').addClass("is-success");
             $('.help').text("Si deseas hacer otra venta vuelve a llenar los campos y presiona enter o el botón pagar")
             $('#client_change').toggleClass("is-success");
         } else {
-            $('#amount').toggleClass("is-danger");
-            $('.help').toggleClass("is-danger");
+            $('#amount').removeClass("is-success");
+            $('#client_change').removeClass("is-success");
+            $('.help').removeClass("is-success");
+            $('#amount').addClass("is-danger");
+            $('.help').addClass("is-danger");
+            $('#client_change').addClass("is-danger");
             $('.help').text("Verifique que el monto total de venta no sea mayor al pago del cliente");
-            $('#client_change').toggleClass("is-danger");
         }
     });
 
