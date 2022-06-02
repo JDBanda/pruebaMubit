@@ -62,11 +62,12 @@ $(function () {
          * 
          */
         $('#template').empty();
-        url = "/"
+        url = "/caja"
         const data = {
             csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(), //Sin esto no se pasan los datos
             amount: $('#amount').val(),
             client_change: $('#client_change').val(),
+            cashier: document.getElementById('bienvenida').getAttribute('persona-turno'),
         };
         $.post(url, data, function (response) {
             //Respuesta sobre si guardo o no el monto

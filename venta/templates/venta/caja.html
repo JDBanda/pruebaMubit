@@ -3,6 +3,8 @@
 {% block content %}
 <section>
     <div class="content">
+        <h1 id="bienvenida" persona-turno="{{ turno.id }}">Bienvenido {{ turno.persona_turno }}</h1>
+        <h4>Inicio del turno {{ turno.creado }}</h4>
         <form method="POST" id="principal_form">
             {% csrf_token %}
             <div class="field">

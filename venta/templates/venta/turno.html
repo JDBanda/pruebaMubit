@@ -1,0 +1,27 @@
+{% extends 'venta/base.html' %}
+{% block title %}Inicio | Prueba técnica{% endblock title %}
+{% block content %}
+<section>
+    <div class="content">
+        <form method="POST" id="principal_form">
+            {% csrf_token %}
+            <label class="label">Cajero que abre turno</label>
+            <div class="field has-addons">
+                <div class="control is-expanded">
+                    <input class="input is-rounded" type="text" placeholder="Joaquin22" id="usuario"
+                    name="usuario" title="Ingrese el nombre del cajero" required>
+                </div>
+                <div class="control">
+                    <button type="submit" class="button is-success is-rounded">
+                        Ingresar
+                    </button>
+                </div>
+            </div>
+            <p class="help">Registrate para usar la caja</p>
+        </form>
+        <br>
+    </div>
+</section>
+{% load static %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+{% endblock content %}

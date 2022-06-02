@@ -1,11 +1,13 @@
 # para renderizar la template de django
-from django.shortcuts import render
+from multiprocessing import context
+from django.shortcuts import redirect, render
+from django.views import View
 # modelos
 from .models import *
 # Fecha
 import datetime
 # Respuesta a solicitudes vía JSON
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 # Convertir a JSON
 import json
 
@@ -92,19 +94,33 @@ def moneyChange(cantidad, cliente):
         cambio = 0
     return moneyTuple
 
+class Index(View):
+    def get(self, request, *args, **kwargs):
+        context = {}
+        return render(request, 'venta/turno.html', context)
 
-def index(request):
-    # Cuando se procese un POST
-    if (request.method == 'POST'):
+    def post(self, request, *args, **kwargs):
+        turno.objects.create(persona_turno=request.POST.get('usuario'))
+        return HttpResponseRedirect("/caja")
+
+class Caja(View):
+    def get(self, request, *args, **kwargs):
+        context = dict()
+        instance_turno = turno.objects.last()
+        context['turno'] = instance_turno
+        return render(request, 'venta/caja.html', context)
+
+    def post(self, request, *args, **kwargs):
         # Valores del front pasados por ajax
-        amount = request.POST['amount']
-        client_change = request.POST['client_change']
+        amount = request.POST.get('amount')
+        client_change = request.POST.get('client_change')
+        cashier = turno.objects.get(id=request.POST.get('cashier'))
         try:
             # Registrar una venta
-            newSale = sale(amount=amount,
+            sale.objects.create(amount=amount,
                            client_change=client_change,
-                           date=datetime.datetime.now())
-            newSale.save()
+                           date=datetime.datetime.now(),
+                           turno=cashier)
             # Valor del cambio y función que devuelve un diccionario con los billetes
             cambio = float(client_change) - float(amount)
             # Devolución del cambio en formato JSON
@@ -126,6 +142,3 @@ def index(request):
                     'icon': 'error',
                 }
             })
-    # Cuando no se procesa el POST devuelve la template unicamente
-    context = {}
-    return render(request, 'venta/index.html', context)
