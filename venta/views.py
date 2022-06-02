@@ -1,5 +1,7 @@
 # para renderizar la template de django
 from multiprocessing import context
+from multiprocessing.sharedctypes import Value
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect, render
 from django.views import View
 # modelos
@@ -111,34 +113,25 @@ class Caja(View):
         return render(request, 'venta/caja.html', context)
 
     def post(self, request, *args, **kwargs):
-        # Valores del front pasados por ajax
-        amount = request.POST.get('amount')
-        client_change = request.POST.get('client_change')
-        cashier = turno.objects.get(id=request.POST.get('cashier'))
         try:
+            amount = request.POST.get('amount')
+            client_change = request.POST.get('client_change')
+            cashier = turno.objects.get(id=request.POST.get('cashier'))
             # Registrar una venta
-            sale.objects.create(amount=amount,
-                           client_change=client_change,
-                           date=datetime.datetime.now(),
-                           turno=cashier)
+            sale.objects.create(amount=amount,client_change=client_change,
+                date=datetime.datetime.now(),turno=cashier)
             # Valor del cambio y función que devuelve un diccionario con los billetes
             cambio = float(client_change) - float(amount)
-            # Devolución del cambio en formato JSON
             moneyDataJson = json.dumps(moneyChange(amount, client_change))
-            # Respuesta satisfactoria
             return JsonResponse({
                 'content': {
                     'title': 'Compra guardada',
                     'icon': 'success',
                     'data': moneyDataJson,
-                    'cambio': cambio,
-                }
-            })
-        except:
-            # Respuesta no satisfactoria
+                    'cambio': cambio,}}, status=302)
+        except ObjectDoesNotExist as err:
             return JsonResponse({
-                'content': {
-                    'title': 'Error en la compra',
-                    'icon': 'error',
-                }
-            })
+                'content': {'title': 'Parámetro inexistente','icon': 'error',}}, status=404)
+        except ValueError as err:
+            return JsonResponse({
+                'content': {'title': 'No se ha ingresado un número','icon': 'error',}}, status=400)
